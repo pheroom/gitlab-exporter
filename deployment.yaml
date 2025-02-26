@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitlab-exporter
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-exporter
+  namespace: gitlab-exporter
+  labels:
+    app: gitlab-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-exporter
+  template:
+    metadata:
+      labels:
+        app: gitlab-exporter
+    spec:
+      containers:
+      - name: gitlab-exporter
+        image: docker.io/kelad/gitlab-exporter
+        ports:
+        - containerPort: Values.containerPort
+        # resources:
+        #   limits:
+        #     cpu: "100m"
+        #     memory: "128Mi"
+        #   requests:
+        #     cpu: "50m"
+        #     memory: "64Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab-exporter-service
+  namespace: gitlab-exporter
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8000
+  selector:
+    app: gitlab-exporter
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gitlab-exporter-ingress
+  namespace: gitlab-exporter
+spec:
+  rules:
+  - host: gitlab-exporter.sc.local
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: gitlab-exporter-service
+            port:
+                  number: 80
