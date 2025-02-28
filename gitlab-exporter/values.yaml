@@ -1,0 +1,2 @@
+namespace: gitlab-exporter
+host: gitlab-exporter.sc.local
