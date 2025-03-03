@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Release.Name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}
@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}
-        image: docker.io/kelad/gitlab-exporter
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         ports:
-        - containerPort: {{ Values.containerPort }}
+        - containerPort: {{ .Values.service.targetPort }}

@@ -1,2 +1,13 @@
 namespace: gitlab-exporter
-host: gitlab-exporter.sc.local
+replicaCount: 1
+image:
+  repository: docker.io/kelad/gitlab-exporter
+  tag: latest
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+ingress:
+  enabled: true
+  host: gitlab-exporter.sc.local
+  path: /

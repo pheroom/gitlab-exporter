@@ -7,8 +7,8 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && apt-get clean
 
-RUN curl -sSL https://install.python-poetry.org | python3 - && \
-    ln -s /root/.local/bin/poetry /usr/local/bin/poetry
+RUN pip install poetry && \
+    poetry --version
 
 WORKDIR /app
 

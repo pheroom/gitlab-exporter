@@ -8,6 +8,9 @@ from gitlab_prom_exporter.schemas import JobEvent
 app = FastAPI(title="gitlab-prom-exporter")
 app.mount("/api/metrics", make_prometheus_app())
 
+@app.get("/")
+async def read_root():
+    return {"message": "App work"}
 
 @app.post("/api/gitlab/event")
 async def post_gitlab_event(request: Request) -> Response:

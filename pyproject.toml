@@ -1,28 +1,25 @@
-[project]
+[tool.poetry]
 name = "gitlab-prom-exporter"
 version = "0.1.0"
 description = "GitLab Prometheus Exporter"
-authors = [
-    {name = "jvstme",email = "git@jvst.me"}
-]
-license = {text = "MIT"}
+authors = ["jvstme <git@jvst.me>"]
+license = "MIT"
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-    "fastapi (>=0.115.6,<0.116.0)",
-    "pydantic (>=2.10.5,<3.0.0)",
-    "prometheus-client (>=0.21.1,<0.22.0)",
-    "uvicorn (>=0.34.0,<0.35.0)"
-]
-
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+fastapi = { version = ">=0.115.6,<0.116.0" }
+pydantic = { version = ">=2.10.5,<3.0.0" }
+prometheus-client = { version = ">=0.21.1,<0.22.0" }
+uvicorn = { version = ">=0.34.0,<0.35.0" }
+python = ">=3.9"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.1"
 mypy = "^1.14.1"
 
 [tool.ruff.lint]
-select = ['E', 'F', 'I' , 'W', 'UP']
+select = ['E', 'F', 'I', 'W', 'UP']
